@@ -3,40 +3,39 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/NotFound";
 import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
+import DashboardLayout from "./components/DashboardLayout";
 import { ThemeProvider } from "./contexts/ThemeContext";
-import Home from "./pages/Home";
+import { AnalyticsPage, AIAnalystPage, DashboardPage, DatasetDetailPage, DatasetsPage, ForecastPage, InsightsPage, LoginPage, ProfilePage, ReportsPage, SettingsPage } from "./pages/AppPages";
 
-function Router() {
-  // make sure to consider if you need authentication for certain routes
-  return (
-    <Switch>
-      <Route path={"/"} component={Home} />
-      <Route path={"/404"} component={NotFound} />
-      {/* Final fallback route */}
-      <Route component={NotFound} />
-    </Switch>
-  );
+function Protected({ children }: { children: React.ReactNode }) {
+  return <DashboardLayout>{children}</DashboardLayout>;
 }
 
-// NOTE: About Theme
-// - First choose a default theme according to your design style (dark or light bg), than change color palette in index.css
-//   to keep consistent foreground/background color across components
-// - If you want to make theme switchable, pass `switchable` ThemeProvider and use `useTheme` hook
+function Router() {
+  return <Switch>
+    <Route path="/" component={LoginPage} />
+    <Route path="/login" component={LoginPage} />
+    <Route path="/dashboard" component={() => <Protected><DashboardPage /></Protected>} />
+    <Route path="/datasets/:id" component={() => <Protected><DatasetDetailPage /></Protected>} />
+    <Route path="/datasets" component={() => <Protected><DatasetsPage /></Protected>} />
+    <Route path="/analytics/:id" component={() => <Protected><AnalyticsPage /></Protected>} />
+    <Route path="/analytics" component={() => <Protected><AnalyticsPage /></Protected>} />
+    <Route path="/ai-analyst/:id" component={() => <Protected><AIAnalystPage /></Protected>} />
+    <Route path="/ai-analyst" component={() => <Protected><AIAnalystPage /></Protected>} />
+    <Route path="/insights/:id" component={() => <Protected><InsightsPage /></Protected>} />
+    <Route path="/insights" component={() => <Protected><InsightsPage /></Protected>} />
+    <Route path="/forecast/:id" component={() => <Protected><ForecastPage /></Protected>} />
+    <Route path="/forecast" component={() => <Protected><ForecastPage /></Protected>} />
+    <Route path="/reports" component={() => <Protected><ReportsPage /></Protected>} />
+    <Route path="/settings" component={() => <Protected><SettingsPage /></Protected>} />
+    <Route path="/profile" component={() => <Protected><ProfilePage /></Protected>} />
+    <Route path="/404" component={NotFound} />
+    <Route component={NotFound} />
+  </Switch>;
+}
 
 function App() {
-  return (
-    <ErrorBoundary>
-      <ThemeProvider
-        defaultTheme="light"
-        // switchable
-      >
-        <TooltipProvider>
-          <Toaster />
-          <Router />
-        </TooltipProvider>
-      </ThemeProvider>
-    </ErrorBoundary>
-  );
+  return <ErrorBoundary><ThemeProvider defaultTheme="light"><TooltipProvider><Toaster /><Router /></TooltipProvider></ThemeProvider></ErrorBoundary>;
 }
 
 export default App;
