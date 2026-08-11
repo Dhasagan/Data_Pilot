@@ -12,12 +12,12 @@
 - [x] Add Recharts visualizations for bar, line, pie, and forecast views.
 - [x] Add Vitest coverage for authentication boundaries, user scoping, dataset procedures, and analytics helpers.
 - [x] Run type-checks, tests, and visual verification.
-- [ ] Save the completed project checkpoint.
+- [x] Save the completed project checkpoint.
 
 ## Change History
 
 - Initial implementation scope recorded from the DataPilot AI requirements.
-- [ ] Follow-up changes requested after initial delivery.
+- [x] Follow-up changes requested after initial delivery.
 
 - [x] Remediation: add a dedicated user-scoped datasetRows table and persist parsed rows explicitly.
 - [x] Remediation: create persisted structured HTML report artifacts in S3 with direct download URLs.
