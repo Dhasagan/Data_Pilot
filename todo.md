@@ -25,3 +25,5 @@
 - [x] Remediation: re-run all validation after remediation.
 
 - [x] Add Vitest coverage for dataset list and delete procedures, including explicit cross-user denial assertions.
+
+- [ ] Push the completed project to the selected GitHub repository Dhasagan/Data_Pilot.
